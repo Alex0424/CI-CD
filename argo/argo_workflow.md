@@ -1,6 +1,6 @@
-# Info
+# Argo workflow
 
-## Argo workflow values
+## Three Values
 
 - Designed to be cloud native.
   - Full potential for Kubernetes.
@@ -9,7 +9,7 @@
 - Open source.
   - Dedicated contributors.
 
-## [Demo](https://youtu.be/UMaivwrAyTA)
+## [Introduction](https://youtu.be/UMaivwrAyTA)
 
 ### Prerequisite
 

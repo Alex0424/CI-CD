@@ -113,14 +113,17 @@ CD Workflow with ArgoCD
 3. ArgoCD monitors for any changes and applies automatically.
 
 
-User Commit -> Git repository -> trigger CI pipeline
+User Commit and push source code repository
+
 ```mermaid
 graph TD
     A[User Commit] --> B[Git repository]
     B --> C[trigger CI pipeline]
 ```
 
-Test -> Build Image -> Push to Docker Repo -> Update K8s manifest File
+Jenkins CI-CD pipeline
+- K8s manifest file will be updated in a separate git repo
+  - e.g. Deployment.yaml will be updated in separate git repo
 
 ```mermaid
 graph LR
@@ -129,8 +132,8 @@ graph LR
     C --> D[Update K8s manifest File]
 ```
 
+Argo CD is monitoring for changes and pulls them when out of sync
 
-ArgoCD is not synced -> ArgoCD pull manifest -> ArgoCD monitor -> loop again
 ```mermaid
 graph TD
     A[ArgoCD is not synced] --> B[ArgoCD pull manifest]
@@ -140,7 +143,8 @@ graph TD
 
 When updating manifest file usually the Deployment yaml file will change the version at `image: app:2.0` part.
 
-> Note (Best Practice for Git Repository):
+#### Best Practice for Git Repository
+
 -  Separate git repositories for application source code and application configuration (K8s manifest files).
 - Even separate git repository for system configurations (First repo for source code and second repo for app configuration).
 
@@ -150,3 +154,23 @@ Why separate Git Repository?
 - K8s manifest files can change independent of source code.
 - You don't want to trigger the full CI pipeline, when app source code has not changed while app config has.
 - You don't want complex logic in CI pipeline that checks what have changed in K8s manifest.
+
+Splitting **CI** (dev) and **CD** (ops)
+
+```mermaid
+graph TD
+    subgraph "Git Repository: App Configuration"
+        AppConfig[GitOps Repository]
+    end
+    subgraph "Git Repository: App Source Code"
+        AppCode[App Source Code]
+        Jenkinsfile[Jenkinsfile]
+    end
+```
+
+K8s manifests can be defined in different ways (works with ArgoCD)
+- Kubernetes YAML files (Plane K8s YAML files).
+- Helm Charts (Generated to Plane K8s YAML files).
+- Kustomize - 'Kustomize.io' (Generated to Plane K8s YAML files).
+
+Tutorial paused at 10:00/47:52

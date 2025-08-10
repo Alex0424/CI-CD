@@ -168,9 +168,80 @@ graph TD
     end
 ```
 
+**Git as Single Source of Truth**
+
+Actual State (K8s) == Desired State (Git repository)
+- Argo CD is keeping same K8s manifest state as based on whats specified in the desired state ('App Configuration Repository'/'GitOps Repository') Repository.
+- So if a change happends in K8s State and its not same as in desired state, then Argo CD will sync with the desired state(pull from repo and update the K8s state)
+- Full cluster transparency
+- Guarantees that K8s manifests in Git remains single source of truth.
+- Single interface.
+- Version controlled changes (history of changes).
+- better team collaboration.
+- Easy rollback
+- Cluster Disaster Recovery (Delete Old cluster and create a new one by pointing to same git repository)
+
+Need a way to quickly update the cluster anyway?
+- Configure ArgoCD to not sync manual cluster changes automatically.
+  - Send alert instead
+
 K8s manifests can be defined in different ways (works with ArgoCD)
 - Kubernetes YAML files (Plane K8s YAML files).
 - Helm Charts (Generated to Plane K8s YAML files).
 - Kustomize - 'Kustomize.io' (Generated to Plane K8s YAML files).
 
-Tutorial paused at 10:00/47:52
+#### Git Ops
+
+ArgoCD is based on GitOps and helps implement those GitOps principles
+
+#### K8S Access Control with Git & Argo CD
+
+```mermaid
+graph TD
+    subgraph "Merge Requests"
+        A[DevOps Team] --> B[Operations Team]
+        B --> C[Junior Engineers]
+        C --> D[Senior Engineers]
+    end
+
+    subgraph "Merge"
+        E[DevOps Team] -->|❌| F[Operations Team]
+        F -->|❌| G[Junior Engineers]
+        G -->|❌| H[Senior Engineers]
+        subgraph "Allowed"
+            H --> I[Merge Successful]
+        end
+    end
+
+    style E fill:#fff,stroke:#fff,stroke-width:0px
+    style F fill:#fff,stroke:#fff,stroke-width:0px
+    style G fill:#fff,stroke:#fff,stroke-width:0px
+    style H fill:#fff,stroke:#fff,stroke-width:0px
+    style A fill:#fff,stroke:#fff,stroke-width:0px
+    style B fill:#fff,stroke:#fff,stroke-width:0px
+    style C fill:#fff,stroke:#fff,stroke-width:0px
+    style D fill:#fff,stroke:#fff,stroke-width:0px
+
+    A --> A_ok(✅)
+    B --> B_ok(✅)
+    C --> C_ok(✅)
+    D --> D_ok(✅)
+
+    E --> E_not_ok(❌)
+    F --> F_not_ok(❌)
+    G --> G_not_ok(❌)
+    H --> H_ok(✅)
+```
+
+Not everyone should have access to K8s cluster
+- Configure access rules easily with Git repositories.
+  - 'Merge request', 'merge' privilege (different access premission).
+  - No need to create ClusterRole & user resources in Kubernetes.
+  - No cluster credential outside of K8s
+    - Engineers do not need access for K8s cluster.
+    - Instead give engineers access to git repository.
+    - No need to give external cluster access to non human users e.g. Jenkins.
+
+#### ArgoCD as K8s extension
+
+Tutorial paused at 17:00/47:52

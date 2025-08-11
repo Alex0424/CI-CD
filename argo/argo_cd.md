@@ -244,4 +244,6 @@ Not everyone should have access to K8s cluster
 
 #### ArgoCD as K8s extension
 
+
+
 Tutorial paused at 17:00/47:52

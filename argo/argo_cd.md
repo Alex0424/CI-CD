@@ -308,13 +308,13 @@ Working with multiple clusters
 │   ├── kustomization.yaml
 │   ├── rbac.yaml
 │   └── service.yaml
-└── overlays
-├── development
-│   └── kustomization.yaml
-├── staging
-│   └── kustomization.yaml
-└── production
-└── kustomization.yaml
+├── overlays
+    ├── development
+    │   └── kustomization.yaml
+    ├── staging
+    │   └── kustomization.yaml
+    └── production
+        └── kustomization.yaml
 ```
 
 ```mermaid

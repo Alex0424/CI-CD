@@ -464,5 +464,3 @@ Try to e.g. increment version of the application to the latest.
 What do the buttons do in ArgoCD GUI?
 - REFRESH: Compare the latest code in Git with the live state.
 - SYNC: Move to target state, by actually applying the changes to the K8s cluster.
-
-Tutorial paused at 32:00/47:52

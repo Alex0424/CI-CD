@@ -244,6 +244,84 @@ Not everyone should have access to K8s cluster
 
 #### ArgoCD as K8s extension
 
+What does it mean?
+- ArgoCD uses K8s functionalities.
+  - e.g. using etcd to store data.
+  - e.g. using K8s controllers for monitoring and comparing actual and desired state
+- BENEFIT: Visibility in the cluster.
+  - Real-time updates of application state.
+    - Pods created, Healthy status.
+    - Pods failing, Rollback needed.
 
+#### How to configure ArgoCD?
+
+1. Deploy ArgoCD into K8s cluster.
+   - Extends the K8s API with crd (Custom Resource Definition)
+2. Configure ArgoCD with K8s YAML File.
+   - Main Resource is "Application"
+     - application.yaml
+       - Which Git repository?
+       - Which K8s cluster?
+     - Possible to configure multiple application for different microservices.
+       - e.g: billing-app.yaml, cart-app.yaml, shipping-app.yaml, frontend-app.yaml
+         - Logically group applications
+           - group them in another 'crd' called app project.
+        - set restrictions
+          - restrict: what (git repos) may be deployed.
+          - restrict: where (cluster & namespaces) apps may be deployed to
+
+e.g. Git repository with Cluster:
+```
+spec:
+  project: default
+  source:
+    repoURL: https://gitlab.com/nanuchi/argocd-app-config.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myapp
+```
+
+#### ArgoCD & Multi-Cluster Setups
+
+Working with multiple clusters
+- Configure and manage just 1 ArgoCD
+- Same ArgoCD instance is able to sync a fleet of K8s clusters.
+
+Working with multiple cluster environments
+- development, staging, production (each environment have their own replicas).
+  - In each environment we may deploy and run ArgoCD instances while still having 1 repository.
+  - test app in each environment and promote to next one
+    - e.g. git repository change -> ArgoCD sync with dev -> test dev -> test stage -> publish to prod
+
+Working with multiple clusters
+
+1. Git branch for each environment (Not as effected as second option)
+
+2. Using overlays with kustomize (Better)
+   
+```
+./myapp-cluster
+├── base
+│   ├── deployment.yaml
+│   ├── kustomization.yaml
+│   ├── rbac.yaml
+│   └── service.yaml
+└── overlays
+├── development
+│   └── kustomization.yaml
+├── staging
+│   └── kustomization.yaml
+└── production
+└── kustomization.yaml
+```
+
+
+```mermaid
+graph LR
+    A[CI Pipeline for DEV] --> B[../development/kustomization.yaml];
+    C[CI Pipeline for STAGING] --> D[../staging/kustomization.yaml];
+```
 
 Tutorial paused at 17:00/47:52

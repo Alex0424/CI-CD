@@ -1,12 +1,8 @@
-# Intro
+# Features
 
-## Install Jenkins
+## Create Item
 
-[follow here](https://www.jenkins.io/doc/book/installing/)
-
-## New Item
-
-### Six options
+### There are six ways to create an item
 - Freestyle project. 
 - Pipeline
 - Multi-configuration project

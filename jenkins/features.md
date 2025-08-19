@@ -1,5 +1,7 @@
 # Features
 
+Information here is based on this [YouTube video](https://youtu.be/yz3tyeA3Fe0?list=PLS1QulWo1RIbY8xXPqz6ad_sNHkIP3IXI)
+
 ## Create Item
 
 ### There are six ways to create an item
@@ -81,7 +83,27 @@
 - Pipeline Configuration
 - Build-timeout Plugin > BuildStep Action
 
+### E-mail Notification
+
+1. SMTP server `smtp.gmail.com`
+2. Default user e-mail suffix `@gmail.com`
+3. `Advanced`
+4. User Name `your_email_adress` (from where you want to send your mail)
+5. Password `your_email_password`
+6. Check the checkbox `Use SSL`
+7. SMTP Port `465`
+8. Reply-To Address `client_email`
+9. Test your email adress (to make sure everything works)
+
+In your Jenkins Item configurations
+
+- go to Post-build actions
+- add E-mail Notification
+
+Other Options:
+- User the preinstalled plugin External E-mail
+  - It has more advanced features
+
 ## Security
 
 `Jenkins` -> `Manage Jenkins` -> `Security`
-

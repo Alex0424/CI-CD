@@ -60,3 +60,28 @@
 ### Post Build Actions
 - Build other project
   - When complete run other projects(child projects/jobs) only if build is "stable"/"even if unstable"/"even if fails"
+
+## System
+
+`Jenkins` -> `Manage Jenkins` -> `System`
+
+- Environment variables
+  - add `name/key` & `value` attributes
+- Usage Statistics
+  - Disable/Enable Jenkins statistics
+- Time Stamper
+  - System clock format
+- Jenkins URL
+  - Switch domain
+- Administrative monitors
+  - pick what warnings should be enabled
+- System Admin e-mail address
+- GitHub Servers
+  - provide github servers credentials
+- Pipeline Configuration
+- Build-timeout Plugin > BuildStep Action
+
+## Security
+
+`Jenkins` -> `Manage Jenkins` -> `Security`
+

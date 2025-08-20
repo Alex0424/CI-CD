@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Clone repository and Clean it') {
+        stage('Clean') {
             steps {
                 dir('jenkins/pipeline') {
                     sh 'mvn clean'
@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Package') {
             steps {
                 dir('jenkins/pipeline') {
                     sh "mvn package"

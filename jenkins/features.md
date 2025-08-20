@@ -17,7 +17,9 @@ Information here is based on this [YouTube video](https://youtu.be/yz3tyeA3Fe0?l
 ### General
 - Discard old builds
 - GitHub project
-- This project is parameterised
+- `+ This project is parameterised` e.g.:
+  - `String Parameter`
+  - `Choice Parameter`
 - Throttle builds
 - Execute concurrent builds if necessary
 

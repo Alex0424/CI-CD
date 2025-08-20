@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Clone repository and Clean it') {
             steps {
+                sh "cd jenkins/pipeline"
                 sh "mvn clean"
             }
         }

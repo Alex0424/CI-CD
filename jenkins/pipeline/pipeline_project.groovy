@@ -3,19 +3,19 @@ pipeline {
     stages {
         stage('Clone repository and Clean it') {
             steps {
-                sh "rm -rf jenkins/my-app"
+                sh "rm -rf CI-CD"
                 sh "git clone https://github.com/Alex0424/CI-CD.git"
-                sh "mvn clean -f jenkins/my-app"
+                sh "mvn -f CI-CD/jenkins/pipeline/ clean"
             }
         }
         stage('Test') {
             steps {
-                sh "mvn test -f jenkins/my-app"
+                sh "mvn -f CI-CD/jenkins/pipeline test"
             }
         }
         stage('Deploy') {
             steps {
-                sh "mvn package -f jenkins/my-app"
+                sh "mvn -f CI-CD/jenkins/pipeline package"
             }
         }
     }

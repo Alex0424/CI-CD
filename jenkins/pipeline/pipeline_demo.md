@@ -26,4 +26,4 @@ Prerequisites:
     - SCM: `Git`
       - Repository URL: `https://github.com/Alex0424/CI-CD.git`
       - Branch: `*/main`
-  - Script Path: `jenkins/pipeline`
+  - Script Path: `jenkins/pipeline/Jenkinsfile`

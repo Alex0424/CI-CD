@@ -2,6 +2,11 @@
 
 [Official Docs](https://www.jenkins.io/doc/book/pipeline/)
 
+Prerequisites:
+[Java](https://www.oracle.com/java/technologies/downloads/)
+[Maven](https://maven.apache.org/install.html)
+[Jekins](https://www.jenkins.io/doc/book/installing/)
+
 ### Demo 1 - add pipeline config to jenkins
 
 `Jenkins` -> `Create Item` -> `Pipeline`
@@ -21,4 +26,4 @@
     - SCM: `Git`
       - Repository URL: `https://github.com/Alex0424/CI-CD.git`
       - Branch: `*/main`
-  - Script Path: `jenkins/pipeline`
+  - Script Path: `jenkins/pipeline/Jenkinsfile`
